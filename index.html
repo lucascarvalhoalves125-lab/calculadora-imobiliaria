@@ -443,6 +443,13 @@
             text-align: left;
         }
 
+        .difference-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
         .recommendation {
             background: var(--bg-quaternary);
             border: 2px solid var(--gold);
@@ -815,6 +822,10 @@
             }
 
             .comparison-container {
+                grid-template-columns: 1fr;
+            }
+
+            .difference-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1305,7 +1316,7 @@
     <section id="alugar-comprar">
         <h2>Qual é a diferença?</h2>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+        <div class="difference-grid">
             <div style="background: var(--bg-tertiary); padding: 30px; border-radius: 12px; border-left: 4px solid var(--gold);">
                 <h3 style="color: var(--gold); margin-bottom: 15px;">Sistema PRICE</h3>
                 <p style="color: var(--text-secondary); line-height: 1.8;">
