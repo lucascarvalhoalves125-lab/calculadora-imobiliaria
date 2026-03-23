@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de Planejamento Imobiliário - Simule financiamentos, compare PRICE vs SAC e analise alugar vs comprar com a Geração de Ativos.">
+    <meta name="keywords" content="calculadora imóvel, financiamento PRICE SAC, ITBI, planejamento imobiliário">
+    <meta property="og:title" content="Calculadora de Planejamento Imobiliário - Geração de Ativos">
+    <meta property="og:description" content="Simule a compra do seu imóvel, compare financiamentos e analise se é melhor comprar ou alugar.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=Calculadora+Imobiliaria">
+    <title>Calculadora de Planejamento Imobiliário | Geração de Ativos</title>
+
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FFD700' width='100' height='100'/><text x='50' y='60' font-size='50' font-weight='bold' fill='%230D0D0D' text-anchor='middle' font-family='Arial'>GA</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0D0D0D;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #161616;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFD700;
+        }
+
+        /* Variáveis de cores */
+        :root {
+            --bg-primary: #0D0D0D;
+            --bg-secondary: #161616;
+            --bg-tertiary: #1E1E1E;
+            --bg-quaternary: #262626;
+            --gold: #FFD700;
+            --gold-dark: #C5A300;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --border-color: #333333;
+            --success: #4CAF50;
+            --danger: #F44336;
+            --info: #BB86FC;
+        }
+
+        /* Header/Hero */
+        header {
+            background: linear-gradient(135deg, #1E1E1E 0%, #161616 100%);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%%" style="stop-color:%23FFD700;stop-opacity:0.05" /><stop offset="100%%" style="stop-color:%23FFD700;stop-opacity:0" /></linearGradient></defs><rect width="1200" height="300" fill="url(%23grad)"/><g fill="none" stroke="%23333333" stroke-width="1" opacity="0.3"><rect x="50" y="50" width="150" height="200"/><rect x="250" y="40" width="120" height="210"/><rect x="420" y="60" width="140" height="190"/><rect x="620" y="50" width="110" height="200"/><rect x="800" y="45" width="160" height="205"/><rect x="1000" y="55" width="130" height="195"/></g></svg>');
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--gold);
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+        }
+
+        header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: #000;
+            border: 2px solid var(--gold);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-dark);
+            border-color: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Ad Banner */
+        .ad-banner {
+            background: var(--bg-secondary);
+            border: 2px dashed var(--border-color);
+            padding: 40px;
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+
+        .ad-banner p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Main Content Layout */
+        main {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin: 40px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .calculator-container {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: var(--bg-quaternary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 18px 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover {
+            color: var(--gold);
+        }
+
+        .tab-button.active {
+            background: var(--gold);
+            color: #000;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: var(--bg-tertiary);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        /* Result Boxes */
+        .result-box {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--gold);
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .result-value {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar-box {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .sidebar-box h3 {
+            color: var(--gold);
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .sidebar-box ul {
+            list-style: none;
+        }
+
+        .sidebar-box li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-box li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-box li::before {
+            content: '✓ ';
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* Comparison Cards */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .comparison-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .comparison-card h3 {
+            color: var(--gold);
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .comparison-card .result-row {
+            text-align: left;
+        }
+
+        .recommendation {
+            background: var(--bg-quaternary);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            color: var(--gold);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead {
+            background: var(--gold);
+            color: #000;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-quaternary);
+        }
+
+        /* Range Slider */
+        .slider-container {
+            margin: 30px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border-color);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 6px rgba(255, 215, 0, 0.3);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+
+        .slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 6px rgba(255, 215, 0, 0.3);
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Sections */
+        section {
+            margin: 60px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        section h2 {
+            color: var(--gold);
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        section h3 {
+            color: var(--text-primary);
+            font-size: 20px;
+            margin: 25px 0 15px;
+            font-weight: 700;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+        }
+
+        .card h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: var(--bg-quaternary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-secondary);
+            color: var(--gold);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 24px;
+            color: var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        /* Share Buttons */
+        .share-container {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .share-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .btn-export-pdf {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .btn-export-pdf:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 3px solid var(--gold);
+            margin-top: 80px;
+            padding: 50px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 32px;
+            }
+
+            header p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+
+            .tab-button {
+                padding: 15px 15px;
+                font-size: 13px;
+            }
+
+            section h2 {
+                font-size: 24px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Estado de carregamento */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Animação de sucesso */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 0.6s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Hero -->
+    <header>
+        <div class="container">
+            <h1>Calculadora de Planejamento Imobiliário</h1>
+            <p>Simule a compra do seu imóvel, compare financiamentos e analise se é melhor comprar ou alugar.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="scrollTo('#calculadora')">Financiamento PRICE vs SAC</button>
+                <button class="btn btn-secondary" onclick="scrollTo('#alugar-comprar')">Análise Alugar vs Comprar</button>
+                <a href="/blog" class="btn btn-secondary">Aprenda Blog</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Banner -->
+    <div class="ad-banner">
+        <p><!-- Google AdSense --> Espaço para Anúncio - Google AdSense</p>
+    </div>
+
+    <!-- Main Content -->
+    <main id="calculadora">
+        <!-- Calculadora Principal -->
+        <div class="calculator-container">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="imovel">Imóvel</button>
+                <button class="tab-button" data-tab="financiamento">Financiamento</button>
+                <button class="tab-button" data-tab="alugar">Alugar vs Comprar</button>
+                <button class="tab-button" data-tab="resumo">Resumo</button>
+            </div>
+
+            <!-- Tab: Imóvel -->
+            <div id="imovel" class="tab-content active">
+                <h2 style="color: var(--gold); font-size: 22px; margin-bottom: 25px;">Dados do Imóvel</h2>
+
+                <div class="form-group">
+                    <label>Valor do Imóvel (R$)</label>
+                    <input type="number" id="valorImovel" value="500000" min="0" step="1000">
+                </div>
+
+                <div class="form-group">
+                    <label>ITBI (% sobre valor)</label>
+                    <input type="number" id="itbi" value="3" min="0" max="10" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Escritura e Cartório (R$)</label>
+                    <input type="number" id="escritura" value="3500" min="0" step="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Reforma / Adequação (R$)</label>
+                    <input type="number" id="reforma" value="20000" min="0" step="1000">
+                </div>
+
+                <div class="form-group">
+                    <label>Outros Custos (R$)</label>
+                    <input type="number" id="outroCustos" value="2000" min="0" step="100">
+                </div>
+
+                <div class="result-box">
+                    <div class="result-row">
+                        <span class="result-label">Custo do ITBI</span>
+                        <span class="result-value" id="custoITBI">R$ 15.000,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Custo Total de Aquisição</span>
+                        <span class="result-value" id="custoTotal">R$ 540.500,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Entrada (20%)</span>
+                        <span class="result-value" id="entrada">R$ 108.100,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Financiamento -->
+            <div id="financiamento" class="tab-content">
+                <h2 style="color: var(--gold); font-size: 22px; margin-bottom: 25px;">Dados do Financiamento</h2>
+
+                <div class="form-group">
+                    <label>Entrada (%)</label>
+                    <input type="number" id="percentualEntrada" value="20" min="0" max="100" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Prazo (meses)</label>
+                    <input type="number" id="prazo" value="360" min="12" max="600" step="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Taxa Mensal (%)</label>
+                    <input type="number" id="taxaMensal" value="0.79" min="0" max="5" step="0.01">
+                </div>
+
+                <div class="result-box">
+                    <div class="result-row">
+                        <span class="result-label">Valor Financiado</span>
+                        <span class="result-value" id="valorFinanciado">R$ 432.400,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Parcela Mensal (PRICE)</span>
+                        <span class="result-value" id="parcelaMensal">R$ 3.247,82</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Total de Juros</span>
+                        <span class="result-value" id="totalJuros">R$ 738.840,20</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Total Pago</span>
+                        <span class="result-value" id="totalPago">R$ 1.171.240,20</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Alugar vs Comprar -->
+            <div id="alugar" class="tab-content">
+                <h2 style="color: var(--gold); font-size: 22px; margin-bottom: 25px;">Análise Alugar vs Comprar</h2>
+
+                <div class="form-group">
+                    <label>Aluguel Mensal Atual (R$)</label>
+                    <input type="number" id="aluguelMensal" value="2500" min="0" step="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Reajuste Anual do Aluguel (%)</label>
+                    <input type="number" id="reajusteAnual" value="5" min="0" max="20" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Rentabilidade Anual se Investisse Entrada (%)</label>
+                    <input type="number" id="rentabilidadeAnual" value="13" min="0" max="50" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Horizonte de Comparação (anos)</label>
+                    <input type="number" id="horizonte" value="20" min="1" max="50" step="1">
+                </div>
+
+                <div class="result-box">
+                    <div class="result-row">
+                        <span class="result-label">Total Pago em Aluguel</span>
+                        <span class="result-value" id="totalAluguel">R$ 702.550,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Total Pago Comprar (Parcelas)</span>
+                        <span class="result-value" id="totalCompraParcelas">R$ 778.300,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Valor Investimento Entrada</span>
+                        <span class="result-value" id="valorInvestimento">R$ 1.200.000,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Diferença</span>
+                        <span class="result-value" id="diferenca">Comprar é R$ 75.750,00 melhor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Resumo -->
+            <div id="resumo" class="tab-content">
+                <h2 style="color: var(--gold); font-size: 22px; margin-bottom: 25px;">Resumo Completo</h2>
+
+                <div class="result-box">
+                    <h3 style="color: var(--gold); margin-bottom: 15px;">Dados do Imóvel</h3>
+                    <div class="result-row">
+                        <span class="result-label">Valor do Imóvel</span>
+                        <span class="result-value" id="resumoValorImovel">R$ 500.000,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Custo Total de Aquisição</span>
+                        <span class="result-value" id="resumoCustoTotal">R$ 540.500,00</span>
+                    </div>
+                </div>
+
+                <div class="result-box">
+                    <h3 style="color: var(--gold); margin-bottom: 15px;">Financiamento</h3>
+                    <div class="result-row">
+                        <span class="result-label">Entrada</span>
+                        <span class="result-value" id="resumoEntrada">R$ 108.100,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Valor Financiado</span>
+                        <span class="result-value" id="resumoFinanciado">R$ 432.400,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Parcela Mensal</span>
+                        <span class="result-value" id="resumoParcelaMensal">R$ 3.247,82</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Total de Juros</span>
+                        <span class="result-value" id="resumoTotalJuros">R$ 738.840,20</span>
+                    </div>
+                </div>
+
+                <div class="share-container">
+                    <button class="share-btn" onclick="compartilharFacebook()">👍 Facebook</button>
+                    <button class="share-btn" onclick="compartilharTwitter()">𝕏 Twitter</button>
+                    <button class="share-btn" onclick="compartilharLinkedin()">in LinkedIn</button>
+                    <button class="share-btn" onclick="compartilharWhatsapp()">💬 WhatsApp</button>
+                    <button class="share-btn" onclick="copiarResultado()">📋 Copiar</button>
+                </div>
+
+                <button class="btn btn-export-pdf" onclick="exportarPDF()">📥 Exportar Resultado em PDF</button>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Anúncio -->
+            <div class="ad-banner" style="height: 600px; display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center; color: var(--text-secondary);">
+                    <p style="margin: 0; font-size: 14px;"><!-- Google AdSense --></p>
+                    <p style="margin: 10px 0 0; font-size: 12px;">300x600</p>
+                </div>
+            </div>
+
+            <!-- Dicas -->
+            <div class="sidebar-box">
+                <h3>💡 Dicas para Simular</h3>
+                <ul>
+                    <li>Considere todos os custos de aquisição</li>
+                    <li>Compare diferentes taxas de juros</li>
+                    <li>Analise PRICE e SAC para escolher</li>
+                    <li>Considere o reajuste de aluguel</li>
+                    <li>Lembre de custos com manutenção</li>
+                </ul>
+            </div>
+
+            <!-- Siga-nos -->
+            <div class="sidebar-box">
+                <h3>🎯 Siga a Geração de Ativos</h3>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/channel/UCIkDshaSosUhKy3slv_7CPw" target="_blank" class="social-link" title="YouTube">▶</a>
+                    <a href="https://www.tiktok.com/@geracaoativos?lang=pt-BR" target="_blank" class="social-link" title="TikTok">♪</a>
+                    <a href="https://www.instagram.com/geracaoativos/" target="_blank" class="social-link" title="Instagram">📷</a>
+                </div>
+            </div>
+
+            <!-- Anúncio -->
+            <div class="ad-banner" style="height: 300px; display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center; color: var(--text-secondary);">
+                    <p style="margin: 0; font-size: 14px;"><!-- Google AdSense --></p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Comparação PRICE vs SAC -->
+    <section id="priceVsSac">
+        <h2>PRICE vs SAC: Qual escolher?</h2>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 30px;">Veja abaixo a comparação entre os dois principais sistemas de amortização:</p>
+
+        <div class="comparison-container">
+            <div class="comparison-card">
+                <h3>📊 Sistema PRICE</h3>
+                <div class="result-row">
+                    <span class="result-label">Parcela Mensal</span>
+                    <span class="result-value" id="priceParcelaMensal">R$ 3.247,82</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">1ª Parcela</span>
+                    <span class="result-value" id="priceParcelaInicial">R$ 3.414,67</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Última Parcela</span>
+                    <span class="result-value" id="priceParcelaFinal">R$ 3.247,82</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Total de Juros</span>
+                    <span class="result-value" id="priceTotalJuros">R$ 738.840,20</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Total Pago</span>
+                    <span class="result-value" id="priceTotalPago">R$ 1.171.240,20</span>
+                </div>
+            </div>
+
+            <div class="comparison-card">
+                <h3>📈 Sistema SAC</h3>
+                <div class="result-row">
+                    <span class="result-label">Amortização</span>
+                    <span class="result-value" id="sacAmortizacao">R$ 1.200,00</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">1ª Parcela</span>
+                    <span class="result-value" id="sacParcelaInicial">R$ 4.547,07</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Última Parcela</span>
+                    <span class="result-value" id="sacParcelaFinal">R$ 1.209,48</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Total de Juros</span>
+                    <span class="result-value" id="sacTotalJuros">R$ 638.870,40</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Total Pago</span>
+                    <span class="result-value" id="sacTotalPago">R$ 1.071.270,40</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendation" id="recomendacao">
+            💡 SAC é melhor: você economiza R$ 99.969,80 em juros
+        </div>
+
+        <p style="text-align: center; color: var(--text-secondary); margin-top: 30px; font-size: 14px;">
+            <strong>PRICE:</strong> parcelas iguais, melhor para quem tem renda fixa.
+            <strong>SAC:</strong> parcelas decrescentes, economiza juros.
+        </p>
+    </section>
+
+    <!-- Tabelas PRICE e SAC -->
+    <section>
+        <h2>Tabelas de Amortização</h2>
+
+        <div class="tabs" style="margin-bottom: 20px;">
+            <button class="tab-button active" data-tab-table="tabelaPrice">Tabela PRICE</button>
+            <button class="tab-button" data-tab-table="tabelaSac">Tabela SAC</button>
+        </div>
+
+        <div class="slider-container">
+            <div class="slider-label">
+                <span>Navegue pelos meses:</span>
+                <span id="mesAtual">Mês 1</span>
+            </div>
+            <input type="range" class="slider" id="sliderMes" min="1" max="360" value="1">
+        </div>
+
+        <div class="result-box" id="cardMesAtual">
+            <h3 style="color: var(--gold); margin-bottom: 15px;">Mês 1</h3>
+            <div class="result-row">
+                <span class="result-label">Parcela</span>
+                <span class="result-value" id="cardParcela">R$ 3.247,82</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Principal</span>
+                <span class="result-value" id="cardPrincipal">R$ 1.087,29</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Juros</span>
+                <span class="result-value" id="cardJuros">R$ 3.414,67</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Saldo Devedor</span>
+                <span class="result-value" id="cardSaldo">R$ 431.312,71</span>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 40px;">Primeiros 12 Meses</h3>
+
+        <div id="tabelaPrice" class="tab-content active">
+            <div class="table-wrapper">
+                <table id="tablePrice">
+                    <thead>
+                        <tr>
+                            <th>Mês</th>
+                            <th>Parcela</th>
+                            <th>Principal</th>
+                            <th>Juros</th>
+                            <th>Saldo Devedor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="priceTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tabelaSac" class="tab-content">
+            <div class="table-wrapper">
+                <table id="tableSac">
+                    <thead>
+                        <tr>
+                            <th>Mês</th>
+                            <th>Parcela</th>
+                            <th>Principal</th>
+                            <th>Juros</th>
+                            <th>Saldo Devedor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sacTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qual é a diferença? -->
+    <section id="alugar-comprar">
+        <h2>Qual é a diferença?</h2>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+            <div style="background: var(--bg-tertiary); padding: 30px; border-radius: 12px; border-left: 4px solid var(--gold);">
+                <h3 style="color: var(--gold); margin-bottom: 15px;">Sistema PRICE</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    No sistema PRICE (Tabela Price), as parcelas são <strong style="color: var(--gold);">iguais do início ao fim</strong> do financiamento. Isso oferece previsibilidade de gastos, ideal para quem possui renda fixa e quer manter as mesmas parcelas. Porém, você pagará mais juros ao longo do tempo, pois a amortização é menor no início.
+                </p>
+            </div>
+
+            <div style="background: var(--bg-tertiary); padding: 30px; border-radius: 12px; border-left: 4px solid var(--gold);">
+                <h3 style="color: var(--gold); margin-bottom: 15px;">Sistema SAC</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    No sistema SAC (Sistema de Amortização Constante), as parcelas <strong style="color: var(--gold);">diminuem com o tempo</strong>. O principal é sempre o mesmo, mas os juros diminuem conforme o saldo devedor reduz. Você economiza juros, mas começa com parcelas maiores. Melhor para quem quer economizar a longo prazo.
+                </p>
+            </div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <h3>💰 Custo Total</h3>
+                <p>SAC economiza em juros. Dependendo do valor e prazo, a diferença pode ser significativa.</p>
+            </div>
+            <div class="card">
+                <h3>📊 Previsibilidade</h3>
+                <p>PRICE oferece parcelas iguais. SAC requer planejamento para parcelas decrescentes.</p>
+            </div>
+            <div class="card">
+                <h3>🎯 Melhor Para</h3>
+                <p>PRICE: renda fixa. SAC: quem quer economizar e tem renda crescente.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculadora de ITBI -->
+    <section>
+        <h2>Calculadora de ITBI</h2>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 30px;">Imposto sobre Transmissão de Bens Imóveis (ITBI) varia por estado</p>
+
+        <div style="max-width: 600px; margin: 0 auto 40px;">
+            <div class="result-box">
+                <div class="form-group">
+                    <label>Valor do Imóvel (R$)</label>
+                    <input type="number" id="itbiValorImovel" value="500000" min="0" step="1000">
+                </div>
+
+                <div class="form-group">
+                    <label>Estado</label>
+                    <select id="itbiEstado">
+                        <option value="3">São Paulo (SP) - 3%</option>
+                        <option value="4">Rio de Janeiro (RJ) - 4%</option>
+                        <option value="2">Minas Gerais (MG) - 2%</option>
+                        <option value="2.5">Bahia (BA) - 2.5%</option>
+                        <option value="2">Pernambuco (PE) - 2%</option>
+                        <option value="2">Ceará (CE) - 2%</option>
+                        <option value="2">Distrito Federal (DF) - 2%</option>
+                        <option value="2">Brasília e Região - 2%</option>
+                        <option value="2.5">Santa Catarina (SC) - 2.5%</option>
+                        <option value="2.5">Rio Grande do Sul (RS) - 2.5%</option>
+                    </select>
+                </div>
+
+                <div class="result-box">
+                    <div class="result-row">
+                        <span class="result-label">Alíquota</span>
+                        <span class="result-value" id="itbiAliquota">3%</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Valor do ITBI</span>
+                        <span class="result-value" id="itbiValor">R$ 15.000,00</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Custo Total com ITBI</span>
+                        <span class="result-value" id="itbiCustoTotal">R$ 515.000,00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; margin-bottom: 20px;">Comparativo de ITBI por Estado (10 principais)</h3>
+        <div class="table-wrapper" style="max-width: 800px; margin: 0 auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th>Alíquota</th>
+                        <th>ITBI sobre R$ 500.000</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rio de Janeiro (RJ)</td>
+                        <td>4%</td>
+                        <td>R$ 20.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>São Paulo (SP)</td>
+                        <td>3%</td>
+                        <td>R$ 15.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Bahia (BA)</td>
+                        <td>2.5%</td>
+                        <td>R$ 12.500,00</td>
+                    </tr>
+                    <tr>
+                        <td>Santa Catarina (SC)</td>
+                        <td>2.5%</td>
+                        <td>R$ 12.500,00</td>
+                    </tr>
+                    <tr>
+                        <td>Rio Grande do Sul (RS)</td>
+                        <td>2.5%</td>
+                        <td>R$ 12.500,00</td>
+                    </tr>
+                    <tr>
+                        <td>Minas Gerais (MG)</td>
+                        <td>2%</td>
+                        <td>R$ 10.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Pernambuco (PE)</td>
+                        <td>2%</td>
+                        <td>R$ 10.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Ceará (CE)</td>
+                        <td>2%</td>
+                        <td>R$ 10.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Distrito Federal (DF)</td>
+                        <td>2%</td>
+                        <td>R$ 10.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Paraná (PR)</td>
+                        <td>2%</td>
+                        <td>R$ 10.000,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="background: var(--bg-tertiary); padding: 25px; border-radius: 12px; border-left: 4px solid var(--gold); margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h3 style="color: var(--gold); margin-bottom: 10px;">📌 Informações sobre ITBI</h3>
+            <ul style="color: var(--text-secondary); list-style: none; margin-top: 15px;">
+                <li style="margin-bottom: 10px;">✓ <strong>ITBI</strong> é um imposto municipal sobre a transmissão de bens imóveis</li>
+                <li style="margin-bottom: 10px;">✓ A alíquota varia de <strong>2% a 4%</strong> dependendo do estado</li>
+                <li style="margin-bottom: 10px;">✓ É pago pelo <strong>comprador</strong> no ato da transferência</li>
+                <li style="margin-bottom: 10px;">✓ Deve ser incluído no planejamento da compra do imóvel</li>
+                <li style="margin-bottom: 10px;">✓ Alguns estados oferecem isenções em casos específicos (primeira casa, etc)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Entenda Melhor -->
+    <section>
+        <h2>Entenda Melhor</h2>
+
+        <div class="cards-grid">
+            <div class="card">
+                <h3>🏠 O que é ITBI?</h3>
+                <p>ITBI é o Imposto sobre Transmissão de Bens Imóveis. É um imposto cobrado pela prefeitura quando você compra um imóvel. O percentual varia por estado, geralmente entre 2% e 4%. É um custo importante a considerar no planejamento da compra.</p>
+            </div>
+
+            <div class="card">
+                <h3>💳 PRICE vs SAC</h3>
+                <p>PRICE oferece parcelas iguais, ideal para orçamento previsível. SAC começa com parcelas maiores mas diminui com o tempo, economizando juros. A escolha depende de sua renda e objetivos financeiros.</p>
+            </div>
+
+            <div class="card">
+                <h3>🏘️ Alugar vs Comprar</h3>
+                <p>Comprar oferece patrimônio e previsibilidade de custos. Alugar oferece flexibilidade. Nossa calculadora ajuda você a comparar ambas as opções considerando juros, reajustes e investimentos alternativos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+        <h2>Perguntas Frequentes</h2>
+
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-item">
+                <div class="faq-question">Qual é a melhor entrada para dar?</div>
+                <div class="faq-answer">
+                    Uma entrada entre 20% e 30% é comum, pois reduz significativamente o valor a financiar e os juros. Porém, considere sua situação financeira: uma entrada muito alta pode deixá-lo sem reservas. Nosso simulador ajuda você a testar diferentes cenários.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Quanto tempo leva para comprar um imóvel?</div>
+                <div class="faq-answer">
+                    O processo típico leva 60 a 120 dias: aprovação do crédito imobiliário (20-30 dias), vistoria (5-10 dias), assinatura de contrato (1-2 dias), registro em cartório (5-10 dias) e transferência (1-2 dias). Pode variar conforme a instituição financeira e localização.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Quais são os custos além da parcela?</div>
+                <div class="faq-answer">
+                    Além da parcela do financiamento, há: ITBI (imposto), cartório e escritura, seguro imobiliário, taxa de administração do banco, condomínio (se houver), e IPTU. Nossa calculadora inclui os principais em suas simulações.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Posso usar o FGTS para comprar?</div>
+                <div class="faq-answer">
+                    Sim! O FGTS pode ser usado como entrada, e em alguns casos para quitar parte do financiamento. Você pode sacar o FGTS se: nunca comprou imóvel com FGTS, tem no mínimo 3 anos de conta, e atende outros critérios. Consulte sua instituição financeira.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Qual a taxa de juros média para financiamento?</div>
+                <div class="faq-answer">
+                    As taxas variam conforme: taxa SELIC, sua aprovação de crédito, tipo de imóvel e prazo do financiamento. Atualmente variam de 0,5% a 2% ao mês. Nossa calculadora permite testar diferentes cenários para fazer sua simulação.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sobre</h3>
+                <ul>
+                    <li><a href="#">Quem Somos</a></li>
+                    <li><a href="#">Nossa Missão</a></li>
+                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#calculadora">Calculadora</a></li>
+                    <li><a href="#priceVsSac">PRICE vs SAC</a></li>
+                    <li><a href="#alugar-comprar">Alugar vs Comprar</a></li>
+                    <li><a href="#">Guias e Tutoriais</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#">LGPD</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Siga-nos</h3>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/channel/UCIkDshaSosUhKy3slv_7CPw" target="_blank" class="social-link" title="YouTube">▶</a>
+                    <a href="https://www.tiktok.com/@geracaoativos?lang=pt-BR" target="_blank" class="social-link" title="TikTok">♪</a>
+                    <a href="https://www.instagram.com/geracaoativos/" target="_blank" class="social-link" title="Instagram">📷</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Calculadora Imobiliária | Geração de Ativos. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px; font-size: 12px;">Este site é apenas para fins educacionais. Consulte um profissional para orientação financeira específica.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuração
+        const formatoMoeda = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        // Funções Auxiliares
+        function formatarMoeda(valor) {
+            return formatoMoeda.format(valor);
+        }
+
+        function scrollTo(seletor) {
+            const elemento = document.querySelector(seletor);
+            if (elemento) {
+                elemento.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Fórmula PRICE
+        function calcularPRICE(pv, taxa, n) {
+            const i = taxa / 100;
+            const numerador = pv * i * Math.pow(1 + i, n);
+            const denominador = Math.pow(1 + i, n) - 1;
+            return numerador / denominador;
+        }
+
+        // Tabela PRICE
+        function gerarTabelaPRICE(pv, taxa, n) {
+            const tabela = [];
+            const i = taxa / 100;
+            const pmt = calcularPRICE(pv, taxa, n);
+            let saldo = pv;
+
+            for (let mes = 1; mes <= n; mes++) {
+                const juros = saldo * i;
+                const principal = pmt - juros;
+                saldo -= principal;
+
+                tabela.push({
+                    mes,
+                    parcela: pmt,
+                    principal,
+                    juros,
+                    saldo: Math.max(0, saldo)
+                });
+            }
+
+            return tabela;
+        }
+
+        // Tabela SAC
+        function gerarTabelaSAC(pv, taxa, n) {
+            const tabela = [];
+            const i = taxa / 100;
+            const amortizacao = pv / n;
+            let saldo = pv;
+
+            for (let mes = 1; mes <= n; mes++) {
+                const juros = saldo * i;
+                const parcela = amortizacao + juros;
+                saldo -= amortizacao;
+
+                tabela.push({
+                    mes,
+                    parcela,
+                    principal: amortizacao,
+                    juros,
+                    saldo: Math.max(0, saldo)
+                });
+            }
+
+            return tabela;
+        }
+
+        // Variáveis globais para armazenar tabelas
+        let tabelaPriceAtual = [];
+        let tabelaSacAtual = [];
+        let tabelaPriceAtiva = true;
+
+        // Event Listeners de Tabs
+        document.querySelectorAll('.tab-button').forEach(botao => {
+            botao.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                if (tabName) {
+                    trocarTab(tabName);
+                }
+                const tableName = this.getAttribute('data-tab-table');
+                if (tableName) {
+                    trocarTabTable(tableName);
+                }
+            });
+        });
+
+        function trocarTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button[data-tab]').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function trocarTabTable(tableName) {
+            document.querySelectorAll('[id^="tabela"]').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button[data-tab-table]').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tableName).classList.add('active');
+            event.target.classList.add('active');
+
+            tabelaPriceAtiva = tableName === 'tabelaPrice';
+            atualizarCardMes();
+        }
+
+        // Recalcular em tempo real
+        function recalcular() {
+            // Dados do Imóvel
+            const valorImovel = parseFloat(document.getElementById('valorImovel').value) || 0;
+            const itbiPercent = parseFloat(document.getElementById('itbi').value) || 0;
+            const escritura = parseFloat(document.getElementById('escritura').value) || 0;
+            const reforma = parseFloat(document.getElementById('reforma').value) || 0;
+            const outroCustos = parseFloat(document.getElementById('outroCustos').value) || 0;
+
+            const custoITBI = valorImovel * (itbiPercent / 100);
+            const custoTotal = valorImovel + custoITBI + escritura + reforma + outroCustos;
+            const entrada = custoTotal * 0.2;
+
+            document.getElementById('custoITBI').textContent = formatarMoeda(custoITBI);
+            document.getElementById('custoTotal').textContent = formatarMoeda(custoTotal);
+            document.getElementById('entrada').textContent = formatarMoeda(entrada);
+
+            // Financiamento
+            const percentualEntrada = parseFloat(document.getElementById('percentualEntrada').value) || 20;
+            const prazo = parseFloat(document.getElementById('prazo').value) || 360;
+            const taxaMensal = parseFloat(document.getElementById('taxaMensal').value) || 0.79;
+
+            const entradaFin = custoTotal * (percentualEntrada / 100);
+            const valorFinanciado = custoTotal - entradaFin;
+
+            const parcelaMensalPrice = calcularPRICE(valorFinanciado, taxaMensal, prazo);
+            const totalPagoPrice = parcelaMensalPrice * prazo;
+            const totalJurosPrice = totalPagoPrice - valorFinanciado;
+
+            document.getElementById('valorFinanciado').textContent = formatarMoeda(valorFinanciado);
+            document.getElementById('parcelaMensal').textContent = formatarMoeda(parcelaMensalPrice);
+            document.getElementById('totalJuros').textContent = formatarMoeda(totalJurosPrice);
+            document.getElementById('totalPago').textContent = formatarMoeda(totalPagoPrice);
+
+            // Tabelas de amortização
+            tabelaPriceAtual = gerarTabelaPRICE(valorFinanciado, taxaMensal, prazo);
+            tabelaSacAtual = gerarTabelaSAC(valorFinanciado, taxaMensal, prazo);
+
+            atualizarTabelasExibicao();
+            atualizarComparacao();
+
+            // Alugar vs Comprar
+            const aluguelMensal = parseFloat(document.getElementById('aluguelMensal').value) || 2500;
+            const reajusteAnual = parseFloat(document.getElementById('reajusteAnual').value) || 5;
+            const rentabilidadeAnual = parseFloat(document.getElementById('rentabilidadeAnual').value) || 13;
+            const horizonte = parseFloat(document.getElementById('horizonte').value) || 20;
+
+            let totalAluguel = 0;
+            for (let ano = 1; ano <= horizonte; ano++) {
+                totalAluguel += aluguelMensal * 12 * Math.pow(1 + reajusteAnual / 100, ano - 1);
+            }
+
+            const mesesComparacao = horizonte * 12;
+            const totalCompraParcelas = parcelaMensalPrice * Math.min(mesesComparacao, prazo);
+            const valorInvestimento = entradaFin * Math.pow(1 + rentabilidadeAnual / 100, horizonte);
+
+            document.getElementById('totalAluguel').textContent = formatarMoeda(totalAluguel);
+            document.getElementById('totalCompraParcelas').textContent = formatarMoeda(totalCompraParcelas);
+            document.getElementById('valorInvestimento').textContent = formatarMoeda(valorInvestimento);
+
+            const diferenca = totalAluguel - totalCompraParcelas;
+            let texDiferenca;
+            if (diferenca > 0) {
+                texDiferenca = `Comprar é R$ ${formatarMoeda(Math.abs(diferenca)).replace('R$', '').trim()} melhor`;
+                document.getElementById('diferenca').style.color = 'var(--success)';
+            } else {
+                texDiferenca = `Alugar é R$ ${formatarMoeda(Math.abs(diferenca)).replace('R$', '').trim()} melhor`;
+                document.getElementById('diferenca').style.color = 'var(--danger)';
+            }
+            document.getElementById('diferenca').textContent = texDiferenca;
+
+            // Resumo
+            document.getElementById('resumoValorImovel').textContent = formatarMoeda(valorImovel);
+            document.getElementById('resumoCustoTotal').textContent = formatarMoeda(custoTotal);
+            document.getElementById('resumoEntrada').textContent = formatarMoeda(entradaFin);
+            document.getElementById('resumoFinanciado').textContent = formatarMoeda(valorFinanciado);
+            document.getElementById('resumoParcelaMensal').textContent = formatarMoeda(parcelaMensalPrice);
+            document.getElementById('resumoTotalJuros').textContent = formatarMoeda(totalJurosPrice);
+
+            // ITBI Calculadora
+            recalcularITBI();
+        }
+
+        function recalcularITBI() {
+            const valorImovel = parseFloat(document.getElementById('itbiValorImovel').value) || 0;
+            const aliquota = parseFloat(document.getElementById('itbiEstado').value) || 3;
+            const itbi = valorImovel * (aliquota / 100);
+            const custoTotal = valorImovel + itbi;
+
+            document.getElementById('itbiAliquota').textContent = aliquota + '%';
+            document.getElementById('itbiValor').textContent = formatarMoeda(itbi);
+            document.getElementById('itbiCustoTotal').textContent = formatarMoeda(custoTotal);
+        }
+
+        function atualizarTabelasExibicao() {
+            // Tabela PRICE
+            const priceBody = document.getElementById('priceTableBody');
+            priceBody.innerHTML = '';
+            for (let i = 0; i < Math.min(12, tabelaPriceAtual.length); i++) {
+                const linha = tabelaPriceAtual[i];
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${linha.mes}</td>
+                    <td>${formatarMoeda(linha.parcela)}</td>
+                    <td>${formatarMoeda(linha.principal)}</td>
+                    <td>${formatarMoeda(linha.juros)}</td>
+                    <td>${formatarMoeda(linha.saldo)}</td>
+                `;
+                priceBody.appendChild(tr);
+            }
+
+            // Tabela SAC
+            const sacBody = document.getElementById('sacTableBody');
+            sacBody.innerHTML = '';
+            for (let i = 0; i < Math.min(12, tabelaSacAtual.length); i++) {
+                const linha = tabelaSacAtual[i];
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${linha.mes}</td>
+                    <td>${formatarMoeda(linha.parcela)}</td>
+                    <td>${formatarMoeda(linha.principal)}</td>
+                    <td>${formatarMoeda(linha.juros)}</td>
+                    <td>${formatarMoeda(linha.saldo)}</td>
+                `;
+                sacBody.appendChild(tr);
+            }
+
+            // Slider
+            const slider = document.getElementById('sliderMes');
+            const maxMes = Math.max(tabelaPriceAtual.length, tabelaSacAtual.length);
+            slider.max = maxMes;
+        }
+
+        function atualizarCardMes() {
+            const mes = parseInt(document.getElementById('sliderMes').value) - 1;
+            const tabela = tabelaPriceAtiva ? tabelaPriceAtual : tabelaSacAtual;
+
+            if (mes >= 0 && mes < tabela.length) {
+                const linha = tabela[mes];
+                document.getElementById('mesAtual').textContent = `Mês ${linha.mes}`;
+                document.getElementById('cardParcela').textContent = formatarMoeda(linha.parcela);
+                document.getElementById('cardPrincipal').textContent = formatarMoeda(linha.principal);
+                document.getElementById('cardJuros').textContent = formatarMoeda(linha.juros);
+                document.getElementById('cardSaldo').textContent = formatarMoeda(linha.saldo);
+                document.getElementById('cardMesAtual').querySelector('h3').textContent = `Mês ${linha.mes}`;
+            }
+        }
+
+        function atualizarComparacao() {
+            const prazo = parseFloat(document.getElementById('prazo').value) || 360;
+            const taxaMensal = parseFloat(document.getElementById('taxaMensal').value) || 0.79;
+            const valorFinanciado = parseFloat(document.getElementById('valorFinanciado').textContent.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+
+            const parcelaMensalPrice = calcularPRICE(valorFinanciado, taxaMensal, prazo);
+            const totalPagoPrice = parcelaMensalPrice * prazo;
+            const totalJurosPrice = totalPagoPrice - valorFinanciado;
+
+            const tabelaSac = gerarTabelaSAC(valorFinanciado, taxaMensal, prazo);
+            const primeiraParcelaSac = tabelaSac[0].parcela;
+            const ultimaParcelaSac = tabelaSac[tabelaSac.length - 1].parcela;
+            const totalJurosSac = tabelaSac.reduce((sum, linha) => sum + linha.juros, 0);
+            const totalPagoSac = valorFinanciado + totalJurosSac;
+
+            document.getElementById('priceParcelaMensal').textContent = formatarMoeda(parcelaMensalPrice);
+            document.getElementById('priceParcelaInicial').textContent = formatarMoeda(parcelaMensalPrice);
+            document.getElementById('priceParcelaFinal').textContent = formatarMoeda(parcelaMensalPrice);
+            document.getElementById('priceTotalJuros').textContent = formatarMoeda(totalJurosPrice);
+            document.getElementById('priceTotalPago').textContent = formatarMoeda(totalPagoPrice);
+
+            document.getElementById('sacAmortizacao').textContent = formatarMoeda(valorFinanciado / prazo);
+            document.getElementById('sacParcelaInicial').textContent = formatarMoeda(primeiraParcelaSac);
+            document.getElementById('sacParcelaFinal').textContent = formatarMoeda(ultimaParcelaSac);
+            document.getElementById('sacTotalJuros').textContent = formatarMoeda(totalJurosSac);
+            document.getElementById('sacTotalPago').textContent = formatarMoeda(totalPagoSac);
+
+            const economia = totalJurosPrice - totalJurosSac;
+            if (economia > 0) {
+                document.getElementById('recomendacao').textContent = `💡 SAC é melhor: você economiza ${formatarMoeda(economia)} em juros`;
+                document.getElementById('recomendacao').style.borderColor = 'var(--success)';
+            } else {
+                document.getElementById('recomendacao').textContent = `💡 PRICE é melhor: você economiza ${formatarMoeda(Math.abs(economia))} em juros`;
+                document.getElementById('recomendacao').style.borderColor = 'var(--gold)';
+            }
+        }
+
+        // Event Listeners
+        ['valorImovel', 'itbi', 'escritura', 'reforma', 'outroCustos', 'percentualEntrada', 'prazo', 'taxaMensal', 'aluguelMensal', 'reajusteAnual', 'rentabilidadeAnual', 'horizonte'].forEach(id => {
+            document.getElementById(id).addEventListener('input', recalcular);
+        });
+
+        ['itbiValorImovel', 'itbiEstado'].forEach(id => {
+            document.getElementById(id).addEventListener('input', recalcularITBI);
+        });
+
+        document.getElementById('sliderMes').addEventListener('input', atualizarCardMes);
+
+        // Compartilhamento
+        function compartilharFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function compartilharTwitter() {
+            const url = window.location.href;
+            const text = 'Confira a Calculadora de Planejamento Imobiliário da Geração de Ativos!';
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function compartilharLinkedin() {
+            const url = window.location.href;
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function compartilharWhatsapp() {
+            const url = window.location.href;
+            const text = 'Simule sua compra de imóvel com a Calculadora de Planejamento Imobiliário!';
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        }
+
+        function copiarResultado() {
+            const resumo = `
+Resultado da Simulação - Geração de Ativos
+
+Imóvel:
+- Valor: ${document.getElementById('resumoValorImovel').textContent}
+- Custo Total: ${document.getElementById('resumoCustoTotal').textContent}
+
+Financiamento:
+- Entrada: ${document.getElementById('resumoEntrada').textContent}
+- Parcela Mensal (PRICE): ${document.getElementById('resumoParcelaMensal').textContent}
+- Total de Juros: ${document.getElementById('resumoTotalJuros').textContent}
+
+${window.location.href}
+            `;
+            navigator.clipboard.writeText(resumo);
+            alert('Resultado copiado para clipboard!');
+        }
+
+        function exportarPDF() {
+            alert('Funcionalidade de exportação em PDF será implementada em breve com integração de biblioteca de PDF.');
+        }
+
+        // FAQ
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const item = this.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Inicializar
+        recalcular();
+    </script>
+</body>
+</html>
