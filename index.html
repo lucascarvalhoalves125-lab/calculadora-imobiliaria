@@ -29,8 +29,8 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0D0D0D;
-            color: #FFFFFF;
+            background: #FFFFFF;
+            color: #1a1a1a;
             line-height: 1.6;
         }
 
@@ -40,37 +40,37 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #161616;
+            background: #f0f0f0;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #333333;
+            background: #cccccc;
             border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #FFD700;
+            background: #B8860B;
         }
 
         /* Variáveis de cores */
         :root {
-            --bg-primary: #0D0D0D;
-            --bg-secondary: #161616;
-            --bg-tertiary: #1E1E1E;
-            --bg-quaternary: #262626;
-            --gold: #FFD700;
-            --gold-dark: #C5A300;
-            --text-primary: #FFFFFF;
-            --text-secondary: #A0A0A0;
-            --border-color: #333333;
-            --success: #4CAF50;
-            --danger: #F44336;
-            --info: #BB86FC;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F5F5F5;
+            --bg-tertiary: #FFFFFF;
+            --bg-quaternary: #F0F0F0;
+            --gold: #B8860B;
+            --gold-dark: #8B6508;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --border-color: #e0e0e0;
+            --success: #2E7D32;
+            --danger: #C62828;
+            --info: #7B1FA2;
         }
 
         /* Header/Hero */
         header {
-            background: linear-gradient(135deg, #1E1E1E 0%, #161616 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
             padding: 60px 20px;
             text-align: center;
             border-bottom: 3px solid var(--gold);
@@ -122,12 +122,12 @@
             font-weight: 800;
             margin-bottom: 15px;
             color: var(--gold);
-            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+            text-shadow: 0 2px 10px rgba(184, 134, 11, 0.2);
         }
 
         header p {
             font-size: 18px;
-            color: var(--text-secondary);
+            color: #cccccc;
             margin-bottom: 40px;
             max-width: 100%;
             margin-left: 0;
@@ -153,7 +153,7 @@
             object-fit: cover;
             border-radius: 16px;
             border: 2px solid var(--border-color);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,215,0,0.06);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 30px rgba(184,134,11,0.1);
         }
 
         .btn {
@@ -179,25 +179,25 @@
             background: var(--gold-dark);
             border-color: var(--gold-dark);
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 20px rgba(184, 134, 11, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
+            color: #FFFFFF;
+            border: 2px solid #FFFFFF;
         }
 
         .btn-secondary:hover {
-            background: var(--gold);
+            background: #FFFFFF;
             color: #000;
             transform: translateY(-2px);
         }
 
         /* Ad Banner */
         .ad-banner {
-            background: var(--bg-secondary);
-            border: 2px dashed var(--border-color);
+            background: #F8F8F8;
+            border: 2px dashed #d0d0d0;
             padding: 40px;
             text-align: center;
             margin: 30px 0;
@@ -226,7 +226,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         /* Tabs */
@@ -312,8 +312,8 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--gold);
-            background: var(--bg-tertiary);
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
         }
 
         /* Result Boxes */
@@ -403,7 +403,7 @@
             width: 44px;
             height: 44px;
             background: #FFFFFF;
-            border: none;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -516,12 +516,12 @@
             background: var(--gold);
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
         }
 
         .slider::-webkit-slider-thumb:hover {
             transform: scale(1.2);
-            box-shadow: 0 0 0 6px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 0 6px rgba(184, 134, 11, 0.3);
         }
 
         .slider::-moz-range-thumb {
@@ -532,12 +532,12 @@
             cursor: pointer;
             border: none;
             transition: all 0.3s ease;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
         }
 
         .slider::-moz-range-thumb:hover {
             transform: scale(1.2);
-            box-shadow: 0 0 0 6px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 0 6px rgba(184, 134, 11, 0.3);
         }
 
         .slider-label {
@@ -589,7 +589,7 @@
         .card:hover {
             border-color: var(--gold);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .card h3 {
@@ -688,15 +688,16 @@
 
         .btn-export-pdf:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
         }
 
         /* Footer */
         footer {
-            background: var(--bg-secondary);
+            background: #1a1a1a;
             border-top: 3px solid var(--gold);
             margin-top: 80px;
             padding: 50px 20px 30px;
+            color: #cccccc;
         }
 
         .footer-content {
@@ -723,7 +724,7 @@
         }
 
         .footer-column a {
-            color: var(--text-secondary);
+            color: #aaaaaa;
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -736,9 +737,9 @@
             max-width: 1200px;
             margin: 0 auto;
             padding-top: 30px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid #333333;
             text-align: center;
-            color: var(--text-secondary);
+            color: #888888;
         }
 
         /* Responsive */
@@ -1321,14 +1322,14 @@
         <h2>Qual é a diferença?</h2>
 
         <div class="difference-grid">
-            <div style="background: var(--bg-tertiary); padding: 30px; border-radius: 12px; border-left: 4px solid var(--gold);">
+            <div style="background: var(--bg-secondary); padding: 30px; border-radius: 12px; border-left: 4px solid var(--gold); border: 1px solid var(--border-color);">
                 <h3 style="color: var(--gold); margin-bottom: 15px;">Sistema PRICE</h3>
                 <p style="color: var(--text-secondary); line-height: 1.8;">
                     No sistema PRICE (Tabela Price), as parcelas são <strong style="color: var(--gold);">iguais do início ao fim</strong> do financiamento. Isso oferece previsibilidade de gastos, ideal para quem possui renda fixa e quer manter as mesmas parcelas. Porém, você pagará mais juros ao longo do tempo, pois a amortização é menor no início.
                 </p>
             </div>
 
-            <div style="background: var(--bg-tertiary); padding: 30px; border-radius: 12px; border-left: 4px solid var(--gold);">
+            <div style="background: var(--bg-secondary); padding: 30px; border-radius: 12px; border-left: 4px solid var(--gold); border: 1px solid var(--border-color);">
                 <h3 style="color: var(--gold); margin-bottom: 15px;">Sistema SAC</h3>
                 <p style="color: var(--text-secondary); line-height: 1.8;">
                     No sistema SAC (Sistema de Amortização Constante), as parcelas <strong style="color: var(--gold);">diminuem com o tempo</strong>. O principal é sempre o mesmo, mas os juros diminuem conforme o saldo devedor reduz. Você economiza juros, mas começa com parcelas maiores. Melhor para quem quer economizar a longo prazo.
@@ -1462,7 +1463,7 @@
             </table>
         </div>
 
-        <div style="background: var(--bg-tertiary); padding: 25px; border-radius: 12px; border-left: 4px solid var(--gold); margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <div style="background: var(--bg-secondary); padding: 25px; border-radius: 12px; border-left: 4px solid var(--gold); margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto; border: 1px solid var(--border-color);">
             <h3 style="color: var(--gold); margin-bottom: 10px;">📌 Informações sobre ITBI</h3>
             <ul style="color: var(--text-secondary); list-style: none; margin-top: 15px;">
                 <li style="margin-bottom: 10px;">✓ <strong>ITBI</strong> é um imposto municipal sobre a transmissão de bens imóveis</li>
