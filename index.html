@@ -1650,6 +1650,15 @@
         </div>
     </footer>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <button class="close-modal" onclick="fecharModal()">&times;</button>
+            <h2 id="modalTitulo"></h2>
+            <div id="modalTexto"></div>
+        </div>
+    </div>
+
     <script>
         // Configuração
         const formatoMoeda = new Intl.NumberFormat('pt-BR', {
@@ -2190,14 +2199,5 @@ ${window.location.href}
             if (e.key === 'Escape') fecharModal();
         });
     </script>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-box">
-            <button class="close-modal" onclick="fecharModal()">&times;</button>
-            <h2 id="modalTitulo"></h2>
-            <div id="modalTexto"></div>
-        </div>
-    </div>
 </body>
 </html>
