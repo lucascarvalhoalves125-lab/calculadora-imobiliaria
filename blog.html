@@ -265,6 +265,20 @@
 
         .article-view strong { color: var(--text-primary); }
 
+        .article-view a.internal-link {
+            color: var(--gold);
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .article-view a.internal-link:hover {
+            color: var(--gold-dark);
+            text-decoration-style: solid;
+        }
+
         .article-cta {
             background: var(--bg-card);
             border: 2px solid var(--gold);
@@ -408,7 +422,7 @@
                 <span>5 min de leitura</span>
             </div>
 
-            <p>O ITBI (Imposto de Transmissão de Bens Imóveis) é um dos custos mais importantes ao comprar um imóvel. Vamos entender como funciona.</p>
+            <p>O ITBI (Imposto de Transmissão de Bens Imóveis) é um dos <a class="internal-link" onclick="showArticle('custos')">custos mais importantes ao comprar um imóvel</a>. Vamos entender como funciona.</p>
 
             <h2>O que é ITBI?</h2>
             <p>O ITBI é um imposto estadual cobrado na transferência de propriedade de um imóvel. Ele incide sobre o valor do imóvel e varia de 2% a 4% dependendo do estado.</p>
@@ -433,7 +447,7 @@
             <ol>
                 <li><strong>Negocie o valor:</strong> O ITBI é calculado sobre o valor declarado</li>
                 <li><strong>Conheça as isenções:</strong> Alguns estados têm isenções para primeira compra</li>
-                <li><strong>Planeje com antecedência:</strong> Inclua o ITBI no seu orçamento</li>
+                <li><strong>Planeje com antecedência:</strong> Inclua o ITBI no seu orçamento. Considere também usar o <a class="internal-link" onclick="showArticle('fgts')">FGTS</a> para reduzir custos</li>
             </ol>
 
             <h2>Exemplo prático</h2>
@@ -461,7 +475,7 @@
                 <span>7 min de leitura</span>
             </div>
 
-            <p>Ao financiar um imóvel, você precisa escolher entre PRICE e SAC. Vamos comparar as duas opções.</p>
+            <p>Ao financiar um imóvel, você precisa escolher entre PRICE e SAC. Antes, conheça <a class="internal-link" onclick="showArticle('custos')">todos os custos envolvidos na compra</a>. Vamos comparar as duas opções.</p>
 
             <h2>PRICE (Sistema Francês)</h2>
             <p>No PRICE, as parcelas são iguais durante todo o período.</p>
@@ -497,6 +511,8 @@
                 <li><strong>SAC:</strong> Se você quer economizar juros e pode pagar mais no início</li>
             </ul>
 
+            <p>Ainda em dúvida se vale a pena financiar? Veja nossa análise de <a class="internal-link" onclick="showArticle('alugar-comprar')">alugar vs comprar</a> e descubra o que faz mais sentido para o seu momento. Você também pode usar o <a class="internal-link" onclick="showArticle('fgts')">FGTS</a> para reduzir o valor financiado.</p>
+
             <div class="article-cta">
                 <h3>Compare PRICE e SAC com seus números!</h3>
                 <p>Use nossa calculadora para ver a diferença exata entre os dois sistemas.</p>
@@ -514,7 +530,7 @@
                 <span>8 min de leitura</span>
             </div>
 
-            <p>A decisão entre alugar ou comprar é uma das mais importantes. Vamos analisar os dois lados.</p>
+            <p>A decisão entre alugar ou comprar é uma das mais importantes. Se optar por comprar, entenda primeiro a diferença entre <a class="internal-link" onclick="showArticle('price-sac')">financiamento PRICE e SAC</a>. Vamos analisar os dois lados.</p>
 
             <h2>Vantagens de Comprar</h2>
             <ol>
@@ -528,7 +544,7 @@
             <ol>
                 <li><strong>Entrada:</strong> Precisa de dinheiro inicial</li>
                 <li><strong>Manutenção:</strong> Você paga pelos reparos</li>
-                <li><strong>Impostos:</strong> IPTU, condomínio, etc.</li>
+                <li><strong>Impostos:</strong> <a class="internal-link" onclick="showArticle('itbi')">ITBI</a>, IPTU, condomínio, etc. Veja o <a class="internal-link" onclick="showArticle('custos')">guia completo de custos</a></li>
                 <li><strong>Inflexibilidade:</strong> Difícil se precisar se mudar</li>
             </ol>
 
@@ -578,7 +594,7 @@
             <h2>Custos de Aquisição</h2>
 
             <h3>ITBI</h3>
-            <p>Imposto estadual: 2% a 4% do valor do imóvel</p>
+            <p>Imposto estadual: 2% a 4% do valor do imóvel. Veja como <a class="internal-link" onclick="showArticle('itbi')">calcular o ITBI</a> em detalhes.</p>
 
             <h3>Escritura e Cartório</h3>
             <p>Custo para registrar o imóvel: R$ 2.000 a R$ 5.000</p>
@@ -587,7 +603,7 @@
             <p>Necessária para financiamento: R$ 500 a R$ 1.500</p>
 
             <h3>Seguro Habitacional</h3>
-            <p>Obrigatório para financiamento: R$ 1.000 a R$ 3.000</p>
+            <p>Obrigatório para financiamento: R$ 1.000 a R$ 3.000. Saiba mais sobre <a class="internal-link" onclick="showArticle('price-sac')">PRICE vs SAC</a>.</p>
 
             <h2>Custos Mensais</h2>
 
@@ -614,7 +630,7 @@
             </ul>
 
             <h2>Dica</h2>
-            <p>Sempre reserve 5% a 10% do valor do imóvel para custos adicionais.</p>
+            <p>Sempre reserve 5% a 10% do valor do imóvel para custos adicionais. Considere usar o <a class="internal-link" onclick="showArticle('fgts')">FGTS</a> para reduzir o valor necessário. Veja também se vale mais a pena <a class="internal-link" onclick="showArticle('alugar-comprar')">alugar ou comprar</a>.</p>
 
             <div class="article-cta">
                 <h3>Calcule todos os custos do seu imóvel!</h3>
@@ -633,7 +649,7 @@
                 <span>6 min de leitura</span>
             </div>
 
-            <p>O FGTS é uma excelente ferramenta para ajudar na compra de um imóvel. Vamos entender como usar.</p>
+            <p>O FGTS é uma excelente ferramenta para ajudar na compra de um imóvel, reduzindo os <a class="internal-link" onclick="showArticle('custos')">custos totais da aquisição</a>. Vamos entender como usar.</p>
 
             <h2>O que é FGTS?</h2>
             <p>O Fundo de Garantia do Tempo de Serviço é um direito do trabalhador. Seu empregador deposita 8% do seu salário.</p>
@@ -678,7 +694,7 @@
             </ol>
 
             <h2>Dica</h2>
-            <p>Use o FGTS para reduzir o valor financiado. Isso economiza muito em juros!</p>
+            <p>Use o FGTS para reduzir o valor financiado. Isso economiza muito em juros! Compare os sistemas <a class="internal-link" onclick="showArticle('price-sac')">PRICE e SAC</a> para escolher a melhor opção. Não se esqueça de incluir o <a class="internal-link" onclick="showArticle('itbi')">ITBI</a> no planejamento.</p>
 
             <div class="article-cta">
                 <h3>Simule a economia com FGTS!</h3>

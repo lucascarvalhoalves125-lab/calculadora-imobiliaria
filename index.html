@@ -1971,7 +1971,77 @@ ${window.location.href}
         }
 
         function exportarPDF() {
-            alert('Funcionalidade de exportação em PDF será implementada em breve com integração de biblioteca de PDF.');
+            // Coletar dados da simulação
+            const dados = {
+                valorImovel: document.getElementById('valorImovel').value,
+                custoITBI: document.getElementById('custoITBI').textContent,
+                custoTotal: document.getElementById('custoTotal').textContent,
+                entrada: document.getElementById('entrada').textContent,
+                valorFinanciado: document.getElementById('valorFinanciado').textContent,
+                parcelaMensal: document.getElementById('parcelaMensal').textContent,
+                totalJuros: document.getElementById('totalJuros').textContent,
+                totalPago: document.getElementById('totalPago').textContent,
+                totalAluguel: document.getElementById('totalAluguel') ? document.getElementById('totalAluguel').textContent : '-',
+                totalCompraParcelas: document.getElementById('totalCompraParcelas') ? document.getElementById('totalCompraParcelas').textContent : '-',
+                valorInvestimento: document.getElementById('valorInvestimento') ? document.getElementById('valorInvestimento').textContent : '-'
+            };
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+<!DOCTYPE html>
+<html><head><title>Simulação Imobiliária - Geração de Ativos</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; padding: 40px; line-height: 1.6; }
+    .header { text-align: center; border-bottom: 3px solid #B8860B; padding-bottom: 20px; margin-bottom: 30px; }
+    .header h1 { font-size: 24px; color: #B8860B; }
+    .header p { color: #666; font-size: 14px; margin-top: 5px; }
+    .section { margin-bottom: 25px; }
+    .section h2 { font-size: 18px; color: #B8860B; border-left: 4px solid #B8860B; padding-left: 12px; margin-bottom: 15px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+    td { padding: 10px 15px; border-bottom: 1px solid #e0e0e0; }
+    td:first-child { color: #555; font-weight: 500; }
+    td:last-child { text-align: right; font-weight: 700; color: #B8860B; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; color: #999; font-size: 12px; }
+    @media print { body { padding: 20px; } }
+</style></head><body>
+    <div class="header">
+        <h1>Simulação de Planejamento Imobiliário</h1>
+        <p>Geração de Ativos | Gerado em ${new Date().toLocaleDateString('pt-BR')}</p>
+    </div>
+    <div class="section">
+        <h2>Dados do Imóvel</h2>
+        <table>
+            <tr><td>Valor do Imóvel</td><td>R$ ${Number(dados.valorImovel).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+            <tr><td>Custo do ITBI</td><td>${dados.custoITBI}</td></tr>
+            <tr><td>Custo Total de Aquisição</td><td>${dados.custoTotal}</td></tr>
+            <tr><td>Entrada (20%)</td><td>${dados.entrada}</td></tr>
+        </table>
+    </div>
+    <div class="section">
+        <h2>Financiamento</h2>
+        <table>
+            <tr><td>Valor Financiado</td><td>${dados.valorFinanciado}</td></tr>
+            <tr><td>Parcela Mensal (PRICE)</td><td>${dados.parcelaMensal}</td></tr>
+            <tr><td>Total de Juros</td><td>${dados.totalJuros}</td></tr>
+            <tr><td>Total Pago</td><td>${dados.totalPago}</td></tr>
+        </table>
+    </div>
+    <div class="section">
+        <h2>Alugar vs Comprar</h2>
+        <table>
+            <tr><td>Total Pago em Aluguel</td><td>${dados.totalAluguel}</td></tr>
+            <tr><td>Total Pago Comprar (Parcelas)</td><td>${dados.totalCompraParcelas}</td></tr>
+            <tr><td>Valor Investimento Entrada</td><td>${dados.valorInvestimento}</td></tr>
+        </table>
+    </div>
+    <div class="footer">
+        <p>Este documento é apenas para fins educacionais. Consulte um profissional para orientação financeira.</p>
+        <p>calculadora-imobiliaria | Geração de Ativos &copy; 2026</p>
+    </div>
+</body></html>`);
+            printWindow.document.close();
+            setTimeout(() => { printWindow.print(); }, 500);
         }
 
         // FAQ
