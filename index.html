@@ -914,6 +914,62 @@
         .pulse {
             animation: pulse 0.6s ease-in-out;
         }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: #fff;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .modal-box h2 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+        .modal-box p {
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .modal-box .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.2s;
+        }
+        .modal-box .close-modal:hover {
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -1545,9 +1601,9 @@
             <div class="footer-column">
                 <h3>Sobre</h3>
                 <ul>
-                    <li><a href="#">Quem Somos</a></li>
-                    <li><a href="#">Nossa Missão</a></li>
-                    <li><a href="#">Contato</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModal('quemSomos')">Quem Somos</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModal('missao')">Nossa Missão</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModal('contato')">Contato</a></li>
                     <li><a href="blog.html">Blog</a></li>
                 </ul>
             </div>
@@ -1557,18 +1613,18 @@
                 <ul>
                     <li><a href="#calculadora">Calculadora</a></li>
                     <li><a href="#priceVsSac">PRICE vs SAC</a></li>
-                    <li><a href="#alugar-comprar">Alugar vs Comprar</a></li>
-                    <li><a href="#">Guias e Tutoriais</a></li>
+                    <li><a href="javascript:void(0)" onclick="irParaAba('alugar')">Alugar vs Comprar</a></li>
+                    <li><a href="blog.html">Guias e Tutoriais</a></li>
                 </ul>
             </div>
 
             <div class="footer-column">
                 <h3>Legal</h3>
                 <ul>
-                    <li><a href="#">Política de Privacidade</a></li>
-                    <li><a href="#">Termos de Uso</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                    <li><a href="#">LGPD</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModal('privacidade')">Política de Privacidade</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModal('termos')">Termos de Uso</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModal('disclaimer')">Disclaimer</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModal('lgpd')">LGPD</a></li>
                 </ul>
             </div>
 
@@ -2054,6 +2110,94 @@ ${window.location.href}
 
         // Inicializar
         recalcular();
+
+        // Modal do Footer
+        const modalConteudos = {
+            quemSomos: {
+                titulo: 'Quem Somos',
+                texto: `<p>A <strong>Geração de Ativos</strong> é uma plataforma de educação financeira focada no mercado imobiliário brasileiro. Nosso objetivo é democratizar o acesso a informações de qualidade sobre planejamento imobiliário.</p>
+                <p>Acreditamos que com as ferramentas e conhecimentos certos, qualquer pessoa pode tomar decisões mais inteligentes na hora de comprar, financiar ou investir em imóveis.</p>
+                <p>Nosso time é formado por profissionais apaixonados por finanças pessoais e pelo sonho da casa própria de cada brasileiro.</p>`
+            },
+            missao: {
+                titulo: 'Nossa Missão',
+                texto: `<p>Nossa missão é <strong>empoderar pessoas</strong> com conhecimento financeiro para que realizem o sonho do imóvel próprio de forma consciente e planejada.</p>
+                <p>Através de calculadoras interativas, artigos educacionais e conteúdo nas redes sociais, buscamos simplificar conceitos complexos do mercado imobiliário.</p>
+                <p>Queremos que cada decisão de compra, financiamento ou investimento imobiliário seja tomada com clareza e confiança.</p>`
+            },
+            contato: {
+                titulo: 'Contato',
+                texto: `<p>Ficou com alguma dúvida ou tem uma sugestão? Entre em contato conosco!</p>
+                <p><strong>E-mail:</strong> contato@geracaodeativos.com.br</p>
+                <p><strong>Redes Sociais:</strong></p>
+                <p>YouTube: <a href="https://www.youtube.com/channel/UCIkDshaSosUhKy3slv_7CPw" target="_blank" style="color: var(--gold);">@GeraçãodeAtivos</a></p>
+                <p>TikTok: <a href="https://www.tiktok.com/@geracaoativos?lang=pt-BR" target="_blank" style="color: var(--gold);">@geracaoativos</a></p>
+                <p>Instagram: <a href="https://www.instagram.com/geracaoativos/" target="_blank" style="color: var(--gold);">@geracaoativos</a></p>`
+            },
+            privacidade: {
+                titulo: 'Política de Privacidade',
+                texto: `<p>A <strong>Geração de Ativos</strong> respeita a sua privacidade. Esta ferramenta é uma calculadora educacional que funciona inteiramente no seu navegador.</p>
+                <p><strong>Dados coletados:</strong> Não coletamos, armazenamos ou transmitimos nenhum dado pessoal ou financeiro inserido na calculadora. Todos os cálculos são realizados localmente no seu dispositivo.</p>
+                <p><strong>Cookies:</strong> Podemos utilizar cookies essenciais para o funcionamento do site. Não utilizamos cookies de rastreamento de terceiros.</p>
+                <p><strong>Compartilhamento:</strong> Não vendemos, alugamos ou compartilhamos suas informações com terceiros.</p>
+                <p>Última atualização: Março de 2026.</p>`
+            },
+            termos: {
+                titulo: 'Termos de Uso',
+                texto: `<p>Ao utilizar a <strong>Calculadora de Planejamento Imobiliário</strong>, você concorda com os seguintes termos:</p>
+                <p><strong>1. Finalidade Educacional:</strong> Esta ferramenta é destinada exclusivamente para fins educacionais e de simulação. Os resultados não constituem aconselhamento financeiro profissional.</p>
+                <p><strong>2. Precisão dos Dados:</strong> Embora nos esforcemos para manter os cálculos precisos, valores reais podem variar conforme condições de mercado, instituição financeira e legislação vigente.</p>
+                <p><strong>3. Responsabilidade:</strong> O usuário é responsável por suas decisões financeiras. Recomendamos sempre consultar um profissional habilitado antes de tomar decisões de investimento.</p>
+                <p><strong>4. Uso Adequado:</strong> É vedado o uso desta ferramenta para fins ilegais ou que violem direitos de terceiros.</p>`
+            },
+            disclaimer: {
+                titulo: 'Disclaimer',
+                texto: `<p><strong>AVISO IMPORTANTE:</strong> Os cálculos e simulações apresentados nesta ferramenta são meramente ilustrativos e educacionais.</p>
+                <p>Os valores apresentados podem diferir dos valores reais praticados por instituições financeiras, cartórios e órgãos governamentais.</p>
+                <p>As taxas de ITBI, juros, índices de correção e demais valores utilizados nos cálculos são aproximações e podem variar conforme o município, estado e momento da consulta.</p>
+                <p><strong>Esta ferramenta não substitui a orientação de profissionais qualificados</strong> como corretores de imóveis, advogados, contadores ou consultores financeiros.</p>
+                <p>A Geração de Ativos não se responsabiliza por decisões tomadas com base exclusivamente nas simulações desta calculadora.</p>`
+            },
+            lgpd: {
+                titulo: 'LGPD - Lei Geral de Proteção de Dados',
+                texto: `<p>Em conformidade com a <strong>Lei nº 13.709/2018 (LGPD)</strong>, informamos:</p>
+                <p><strong>Tratamento de Dados:</strong> A Calculadora de Planejamento Imobiliário não coleta, armazena ou processa dados pessoais. Todas as simulações são executadas localmente no navegador do usuário.</p>
+                <p><strong>Seus Direitos:</strong> Como não coletamos dados pessoais, não há dados a serem consultados, corrigidos ou excluídos. Caso tenhamos qualquer informação sua (ex: contato por e-mail), você pode solicitar acesso, correção ou exclusão a qualquer momento.</p>
+                <p><strong>Base Legal:</strong> Nosso site opera sob o princípio da minimização de dados, coletando apenas o estritamente necessário para o funcionamento da plataforma.</p>
+                <p><strong>Encarregado (DPO):</strong> Para questões relacionadas à LGPD, entre em contato pelo e-mail: contato@geracaodeativos.com.br</p>`
+            }
+        };
+
+        function abrirModal(id) {
+            const conteudo = modalConteudos[id];
+            if (!conteudo) return;
+            document.getElementById('modalTitulo').textContent = conteudo.titulo;
+            document.getElementById('modalTexto').innerHTML = conteudo.texto;
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) fecharModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') fecharModal();
+        });
     </script>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <button class="close-modal" onclick="fecharModal()">&times;</button>
+            <h2 id="modalTitulo"></h2>
+            <div id="modalTexto"></div>
+        </div>
+    </div>
 </body>
 </html>
