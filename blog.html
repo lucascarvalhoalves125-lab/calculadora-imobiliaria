@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog de Finanças Imobiliárias - Artigos, dicas e guias da Geração de Ativos para ajudar na compra do seu imóvel.">
+    <title>Blog de Finanças Imobiliárias | Geração de Ativos</title>
+
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23B8860B' width='100' height='100'/><text x='50' y='60' font-size='50' font-weight='bold' fill='%23FFFFFF' text-anchor='middle' font-family='Arial'>GA</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FFFFFF;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        :root {
+            --gold: #B8860B;
+            --gold-dark: #8B6508;
+            --bg-card: #F5F5F5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --border-color: #e0e0e0;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+            padding: 30px 20px;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--gold);
+            font-size: 22px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .logo span { color: #FFFFFF; }
+
+        nav a {
+            color: #cccccc;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--gold); }
+
+        .btn-calc {
+            background: var(--gold);
+            color: #000;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: all 0.3s;
+        }
+
+        .btn-calc:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Blog */
+        .blog-hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #222222 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .blog-hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .blog-hero p {
+            font-size: 18px;
+            color: #aaaaaa;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Blog Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
+        }
+
+        .blog-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .blog-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: #000;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .blog-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .blog-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .blog-link {
+            color: var(--gold);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .blog-link:hover { color: var(--gold-dark); }
+
+        /* Article View */
+        .article-view {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px 80px;
+        }
+
+        .article-view.active { display: block; }
+        .blog-grid-wrapper.hidden { display: none; }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gold);
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 30px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover { color: var(--gold-dark); }
+
+        .article-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: #000;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .article-view h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .article-view h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 35px 0 15px;
+        }
+
+        .article-view h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 25px 0 10px;
+        }
+
+        .article-view p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .article-view ul, .article-view ol {
+            margin: 15px 0 20px 25px;
+            color: var(--text-secondary);
+        }
+
+        .article-view li {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .article-view strong { color: var(--text-primary); }
+
+        .article-cta {
+            background: var(--bg-card);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .article-cta h3 {
+            color: var(--gold) !important;
+            margin-bottom: 10px !important;
+        }
+
+        .article-cta p { text-align: center; }
+
+        .article-cta .btn-calc {
+            display: inline-block;
+            margin: 15px 0 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            border-top: 3px solid var(--gold);
+            padding: 40px 20px;
+            text-align: center;
+            color: #888;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .blog-hero h1 { font-size: 28px; }
+            .blog-hero p { font-size: 15px; }
+            .blog-grid { grid-template-columns: 1fr; padding: 30px 0; }
+            .article-view h1 { font-size: 26px; }
+            .header-inner { flex-direction: column; gap: 15px; }
+            nav { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+            nav a { margin-left: 0; }
+            .btn-calc { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">Geração <span>de Ativos</span></a>
+            <nav>
+                <a href="index.html">Calculadora</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html" class="btn-calc">Simular Agora</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero -->
+    <div class="blog-hero">
+        <h1>Blog de Finanças Imobiliárias</h1>
+        <p>Artigos, dicas e guias para ajudar você a tomar as melhores decisões na compra de um imóvel.</p>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="container">
+        <div class="blog-grid-wrapper">
+            <div class="blog-grid">
+                <!-- Artigo 1 -->
+                <div class="blog-card" onclick="showArticle('itbi')">
+                    <span class="blog-tag">Impostos</span>
+                    <h2>Como Calcular o ITBI na Compra de Imóvel</h2>
+                    <p>Entenda o que é ITBI, como calcular e quanto você vai pagar ao comprar um imóvel. Varia de 2% a 4% conforme o estado.</p>
+                    <div class="blog-meta">
+                        <span>18 de março de 2026</span>
+                        <span>5 min de leitura</span>
+                    </div>
+                    <span class="blog-link">Ler artigo →</span>
+                </div>
+
+                <!-- Artigo 2 -->
+                <div class="blog-card" onclick="showArticle('price-sac')">
+                    <span class="blog-tag">Financiamento</span>
+                    <h2>PRICE vs SAC: Qual é a Melhor Opção de Financiamento?</h2>
+                    <p>Comparamos os dois principais sistemas de amortização. Descubra qual é melhor para sua situação financeira.</p>
+                    <div class="blog-meta">
+                        <span>15 de março de 2026</span>
+                        <span>7 min de leitura</span>
+                    </div>
+                    <span class="blog-link">Ler artigo →</span>
+                </div>
+
+                <!-- Artigo 3 -->
+                <div class="blog-card" onclick="showArticle('alugar-comprar')">
+                    <span class="blog-tag">Estratégia</span>
+                    <h2>Alugar vs Comprar: Qual é a Melhor Decisão?</h2>
+                    <p>Análise completa para ajudar você a decidir entre alugar ou comprar seu imóvel. Considere todos os fatores.</p>
+                    <div class="blog-meta">
+                        <span>12 de março de 2026</span>
+                        <span>8 min de leitura</span>
+                    </div>
+                    <span class="blog-link">Ler artigo →</span>
+                </div>
+
+                <!-- Artigo 4 -->
+                <div class="blog-card" onclick="showArticle('custos')">
+                    <span class="blog-tag">Custos</span>
+                    <h2>Todos os Custos ao Comprar um Imóvel: Guia Completo</h2>
+                    <p>Não é só o preço do imóvel. Conheça todos os custos envolvidos na compra: ITBI, escritura, reforma e mais.</p>
+                    <div class="blog-meta">
+                        <span>10 de março de 2026</span>
+                        <span>6 min de leitura</span>
+                    </div>
+                    <span class="blog-link">Ler artigo →</span>
+                </div>
+
+                <!-- Artigo 5 -->
+                <div class="blog-card" onclick="showArticle('fgts')">
+                    <span class="blog-tag">FGTS</span>
+                    <h2>Como Usar o FGTS para Comprar um Imóvel</h2>
+                    <p>Guia completo sobre como usar seu FGTS na compra de imóvel. Conheça as regras e os benefícios.</p>
+                    <div class="blog-meta">
+                        <span>8 de março de 2026</span>
+                        <span>6 min de leitura</span>
+                    </div>
+                    <span class="blog-link">Ler artigo →</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artigo: ITBI -->
+        <div id="article-itbi" class="article-view">
+            <span class="back-btn" onclick="showGrid()">← Voltar ao Blog</span>
+            <span class="article-tag">Impostos</span>
+            <h1>Como Calcular o ITBI na Compra de Imóvel</h1>
+            <div class="article-meta">
+                <span>18 de março de 2026</span>
+                <span>5 min de leitura</span>
+            </div>
+
+            <p>O ITBI (Imposto de Transmissão de Bens Imóveis) é um dos custos mais importantes ao comprar um imóvel. Vamos entender como funciona.</p>
+
+            <h2>O que é ITBI?</h2>
+            <p>O ITBI é um imposto estadual cobrado na transferência de propriedade de um imóvel. Ele incide sobre o valor do imóvel e varia de 2% a 4% dependendo do estado.</p>
+
+            <h2>Como é calculado?</h2>
+            <p>O ITBI é calculado sobre o valor do imóvel. Por exemplo:</p>
+            <ul>
+                <li>Imóvel de R$ 500.000</li>
+                <li>ITBI de 3% = R$ 15.000</li>
+            </ul>
+
+            <h2>Variação por estado</h2>
+            <p>Cada estado tem sua alíquota:</p>
+            <ul>
+                <li><strong>São Paulo:</strong> 3%</li>
+                <li><strong>Rio de Janeiro:</strong> 4%</li>
+                <li><strong>Minas Gerais:</strong> 2%</li>
+                <li><strong>Bahia:</strong> 2%</li>
+            </ul>
+
+            <h2>Como economizar?</h2>
+            <ol>
+                <li><strong>Negocie o valor:</strong> O ITBI é calculado sobre o valor declarado</li>
+                <li><strong>Conheça as isenções:</strong> Alguns estados têm isenções para primeira compra</li>
+                <li><strong>Planeje com antecedência:</strong> Inclua o ITBI no seu orçamento</li>
+            </ol>
+
+            <h2>Exemplo prático</h2>
+            <p>Para um imóvel de R$ 500.000 em São Paulo:</p>
+            <ul>
+                <li>Valor do imóvel: R$ 500.000</li>
+                <li>ITBI (3%): R$ 15.000</li>
+                <li>Você precisará de R$ 15.000 além do valor do imóvel</li>
+            </ul>
+
+            <div class="article-cta">
+                <h3>Simule o ITBI do seu imóvel!</h3>
+                <p>Use nossa calculadora para descobrir o valor exato do ITBI.</p>
+                <a href="index.html" class="btn-calc">Ir para Calculadora</a>
+            </div>
+        </div>
+
+        <!-- Artigo: PRICE vs SAC -->
+        <div id="article-price-sac" class="article-view">
+            <span class="back-btn" onclick="showGrid()">← Voltar ao Blog</span>
+            <span class="article-tag">Financiamento</span>
+            <h1>PRICE vs SAC: Qual é a Melhor Opção de Financiamento?</h1>
+            <div class="article-meta">
+                <span>15 de março de 2026</span>
+                <span>7 min de leitura</span>
+            </div>
+
+            <p>Ao financiar um imóvel, você precisa escolher entre PRICE e SAC. Vamos comparar as duas opções.</p>
+
+            <h2>PRICE (Sistema Francês)</h2>
+            <p>No PRICE, as parcelas são iguais durante todo o período.</p>
+            <p><strong>Vantagens:</strong></p>
+            <ul>
+                <li>Parcelas previsíveis</li>
+                <li>Mais fácil para orçamento</li>
+                <li>Melhor para quem tem renda fixa</li>
+            </ul>
+            <p><strong>Desvantagens:</strong></p>
+            <ul>
+                <li>Mais juros no total</li>
+                <li>Amortização mais lenta no início</li>
+            </ul>
+
+            <h2>SAC (Amortização Constante)</h2>
+            <p>No SAC, você amortiza a mesma quantidade todo mês, então as parcelas diminuem.</p>
+            <p><strong>Vantagens:</strong></p>
+            <ul>
+                <li>Menos juros no total</li>
+                <li>Parcelas diminuem com o tempo</li>
+                <li>Melhor para longo prazo</li>
+            </ul>
+            <p><strong>Desvantagens:</strong></p>
+            <ul>
+                <li>Parcelas altas no início</li>
+                <li>Mais difícil de orçar</li>
+            </ul>
+
+            <h2>Qual escolher?</h2>
+            <ul>
+                <li><strong>PRICE:</strong> Se você quer parcelas iguais e previsíveis</li>
+                <li><strong>SAC:</strong> Se você quer economizar juros e pode pagar mais no início</li>
+            </ul>
+
+            <div class="article-cta">
+                <h3>Compare PRICE e SAC com seus números!</h3>
+                <p>Use nossa calculadora para ver a diferença exata entre os dois sistemas.</p>
+                <a href="index.html" class="btn-calc">Ir para Calculadora</a>
+            </div>
+        </div>
+
+        <!-- Artigo: Alugar vs Comprar -->
+        <div id="article-alugar-comprar" class="article-view">
+            <span class="back-btn" onclick="showGrid()">← Voltar ao Blog</span>
+            <span class="article-tag">Estratégia</span>
+            <h1>Alugar vs Comprar: Qual é a Melhor Decisão?</h1>
+            <div class="article-meta">
+                <span>12 de março de 2026</span>
+                <span>8 min de leitura</span>
+            </div>
+
+            <p>A decisão entre alugar ou comprar é uma das mais importantes. Vamos analisar os dois lados.</p>
+
+            <h2>Vantagens de Comprar</h2>
+            <ol>
+                <li><strong>Patrimônio:</strong> Você constrói patrimônio</li>
+                <li><strong>Estabilidade:</strong> Sem risco de aumento de aluguel</li>
+                <li><strong>Customização:</strong> Você faz as mudanças que quiser</li>
+                <li><strong>Valorização:</strong> O imóvel pode valorizar</li>
+            </ol>
+
+            <h2>Desvantagens de Comprar</h2>
+            <ol>
+                <li><strong>Entrada:</strong> Precisa de dinheiro inicial</li>
+                <li><strong>Manutenção:</strong> Você paga pelos reparos</li>
+                <li><strong>Impostos:</strong> IPTU, condomínio, etc.</li>
+                <li><strong>Inflexibilidade:</strong> Difícil se precisar se mudar</li>
+            </ol>
+
+            <h2>Vantagens de Alugar</h2>
+            <ol>
+                <li><strong>Flexibilidade:</strong> Pode se mudar quando quiser</li>
+                <li><strong>Sem manutenção:</strong> O proprietário cuida</li>
+                <li><strong>Sem entrada:</strong> Só precisa de caução</li>
+                <li><strong>Liquidez:</strong> Seu dinheiro está disponível</li>
+            </ol>
+
+            <h2>Desvantagens de Alugar</h2>
+            <ol>
+                <li><strong>Sem patrimônio:</strong> Dinheiro vai embora</li>
+                <li><strong>Aumento de aluguel:</strong> Pode ficar caro com o tempo</li>
+                <li><strong>Sem controle:</strong> Proprietário pode vender</li>
+                <li><strong>Sem investimento:</strong> Não há valorização</li>
+            </ol>
+
+            <h2>A Decisão Depende de:</h2>
+            <ul>
+                <li>Sua situação financeira</li>
+                <li>Seus planos para o futuro</li>
+                <li>O mercado imobiliário local</li>
+                <li>Sua preferência pessoal</li>
+            </ul>
+
+            <div class="article-cta">
+                <h3>Simule ambos os cenários!</h3>
+                <p>Use nossa calculadora para comparar os custos de alugar vs comprar.</p>
+                <a href="index.html" class="btn-calc">Ir para Calculadora</a>
+            </div>
+        </div>
+
+        <!-- Artigo: Custos -->
+        <div id="article-custos" class="article-view">
+            <span class="back-btn" onclick="showGrid()">← Voltar ao Blog</span>
+            <span class="article-tag">Custos</span>
+            <h1>Todos os Custos ao Comprar um Imóvel: Guia Completo</h1>
+            <div class="article-meta">
+                <span>10 de março de 2026</span>
+                <span>6 min de leitura</span>
+            </div>
+
+            <p>Muitas pessoas esquecem dos custos adicionais ao comprar um imóvel. Vamos listar todos.</p>
+
+            <h2>Custos de Aquisição</h2>
+
+            <h3>ITBI</h3>
+            <p>Imposto estadual: 2% a 4% do valor do imóvel</p>
+
+            <h3>Escritura e Cartório</h3>
+            <p>Custo para registrar o imóvel: R$ 2.000 a R$ 5.000</p>
+
+            <h3>Avaliação do Imóvel</h3>
+            <p>Necessária para financiamento: R$ 500 a R$ 1.500</p>
+
+            <h3>Seguro Habitacional</h3>
+            <p>Obrigatório para financiamento: R$ 1.000 a R$ 3.000</p>
+
+            <h2>Custos Mensais</h2>
+
+            <h3>IPTU</h3>
+            <p>Imposto predial: 0,5% a 1% do valor anual</p>
+
+            <h3>Condomínio</h3>
+            <p>Manutenção do prédio: R$ 500 a R$ 2.000+</p>
+
+            <h3>Seguro Residencial</h3>
+            <p>Proteção do imóvel: R$ 100 a R$ 300</p>
+
+            <h3>Manutenção</h3>
+            <p>Reparos e melhorias: 1% do valor anual</p>
+
+            <h2>Custos Iniciais Totais</h2>
+            <p>Para um imóvel de R$ 500.000:</p>
+            <ul>
+                <li>ITBI (3%): R$ 15.000</li>
+                <li>Escritura: R$ 3.500</li>
+                <li>Avaliação: R$ 1.000</li>
+                <li>Seguro: R$ 2.000</li>
+                <li><strong>Total: R$ 21.500</strong></li>
+            </ul>
+
+            <h2>Dica</h2>
+            <p>Sempre reserve 5% a 10% do valor do imóvel para custos adicionais.</p>
+
+            <div class="article-cta">
+                <h3>Calcule todos os custos do seu imóvel!</h3>
+                <p>Use nossa calculadora para simular todos os custos envolvidos.</p>
+                <a href="index.html" class="btn-calc">Ir para Calculadora</a>
+            </div>
+        </div>
+
+        <!-- Artigo: FGTS -->
+        <div id="article-fgts" class="article-view">
+            <span class="back-btn" onclick="showGrid()">← Voltar ao Blog</span>
+            <span class="article-tag">FGTS</span>
+            <h1>Como Usar o FGTS para Comprar um Imóvel</h1>
+            <div class="article-meta">
+                <span>8 de março de 2026</span>
+                <span>6 min de leitura</span>
+            </div>
+
+            <p>O FGTS é uma excelente ferramenta para ajudar na compra de um imóvel. Vamos entender como usar.</p>
+
+            <h2>O que é FGTS?</h2>
+            <p>O Fundo de Garantia do Tempo de Serviço é um direito do trabalhador. Seu empregador deposita 8% do seu salário.</p>
+
+            <h2>Como Usar para Comprar</h2>
+
+            <h3>Opção 1: Entrada</h3>
+            <p>Você pode usar o FGTS como parte da entrada do imóvel.</p>
+            <p><strong>Vantagens:</strong></p>
+            <ul>
+                <li>Reduz a entrada necessária</li>
+                <li>Menos financiamento</li>
+                <li>Menos juros</li>
+            </ul>
+
+            <h3>Opção 2: Pagar Parcelas</h3>
+            <p>Você pode usar o FGTS para pagar parcelas do financiamento.</p>
+            <p><strong>Vantagens:</strong></p>
+            <ul>
+                <li>Reduz o valor financiado</li>
+                <li>Menos juros</li>
+                <li>Parcelas menores</li>
+            </ul>
+
+            <h2>Requisitos</h2>
+            <ol>
+                <li>Ter saldo no FGTS</li>
+                <li>Não ter sacado há 3 anos</li>
+                <li>Não possuir imóvel</li>
+                <li>Estar filiado há 3 anos</li>
+            </ol>
+
+            <h2>Quanto Posso Sacar?</h2>
+            <p>Você pode sacar até 100% do seu saldo do FGTS para comprar um imóvel.</p>
+
+            <h2>Processo</h2>
+            <ol>
+                <li>Solicite a autorização na Caixa</li>
+                <li>Apresente documentos do imóvel</li>
+                <li>Aguarde aprovação</li>
+                <li>Receba o valor</li>
+            </ol>
+
+            <h2>Dica</h2>
+            <p>Use o FGTS para reduzir o valor financiado. Isso economiza muito em juros!</p>
+
+            <div class="article-cta">
+                <h3>Simule a economia com FGTS!</h3>
+                <p>Use nossa calculadora para ver quanto você economiza usando o FGTS.</p>
+                <a href="index.html" class="btn-calc">Ir para Calculadora</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Calculadora Imobiliária | <a href="index.html">Geração de Ativos</a>. Todos os direitos reservados.</p>
+        <p style="margin-top: 10px; font-size: 13px;">Este site é apenas para fins educacionais. Consulte um profissional para orientação financeira específica.</p>
+    </footer>
+
+    <script>
+        function showArticle(id) {
+            document.querySelector('.blog-grid-wrapper').classList.add('hidden');
+            document.querySelectorAll('.article-view').forEach(a => a.classList.remove('active'));
+            document.getElementById('article-' + id).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showGrid() {
+            document.querySelectorAll('.article-view').forEach(a => a.classList.remove('active'));
+            document.querySelector('.blog-grid-wrapper').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Check URL hash for direct article link
+        if (window.location.hash) {
+            const id = window.location.hash.replace('#', '');
+            if (document.getElementById('article-' + id)) {
+                showArticle(id);
+            }
+        }
+    </script>
+</body>
+</html>
